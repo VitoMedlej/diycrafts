@@ -1,38 +1,37 @@
 "use client";
 import {useContext, useEffect, useState} from 'react';
 import {Drawer,List,Divider,ListItem,ListItemButton,ListItemText,ListItemIcon,Box, Typography, Accordion, AccordionDetails, AccordionSummary} from '@mui/material';
-import {IoShirtOutline,IoShirtSharp} from 'react-icons/io5';
+// import {IoShirtOutline,IoShirtSharp} from 'react-icons/io5';
 import { IconButton } from '@mui/material';
-import {AiOutlineHeart} from 'react-icons/ai'
+// import {AiOutlineHeart} from 'react-icons/ai'
 
 import { useRouter } from 'next/navigation';
 import {AiOutlineArrowUp} from 'react-icons/ai';
 
-import { DrawerContext } from '@/context/Contexts';
+import { DrawerContext, useCategoriesContext } from '@/context/Contexts';
 import {GrFormClose} from 'react-icons/gr'
-import SMicons from '../SMicons/SMicons';
-import { categories } from '../Navbar/Navbar';
-import Btn from '../Btn/Btn';
-import Link from 'next/link';
+// import SMicons from '../SMicons/SMicons';
 
 
-export default function TemporaryDrawer({cates}:{cates:string[] | undefined}) {
+export default function TemporaryDrawer() {
   
   const {open, setOpen} = useContext(DrawerContext);
-  const [localUser,setLocalUser] = useState<{name?:string,email?:string} | null>(null)
+  // const [localUser,setLocalUser] = useState<{name?:string,email?:string} | null>(null)
+  const {categories} = useCategoriesContext();
+  console.log('categories: ', categories);
 
-  const fetchUserAndList = async () => {
-    const user = localStorage.getItem('24j1i2cj4io-dadxzazd213')
-    if (user) {
-           let parsedUser = JSON.parse(user)
-           if (!parsedUser) {return}
-           setLocalUser(parsedUser)
-    }
-}
-useEffect(()=>{
-  fetchUserAndList()
+//   const fetchUserAndList = async () => {
+//     const user = localStorage.getItem('GijVT341fxSFOjgio2j55')
+//     if (user) {
+//            let parsedUser = JSON.parse(user)
+//            if (!parsedUser) {return}
+//            setLocalUser(parsedUser)
+//     }
+// }
+// useEffect(()=>{
+//   fetchUserAndList()
 
-},[])
+// },[])
   const router = useRouter();
   const toggleDrawer =
     ( open: boolean) =>
@@ -56,14 +55,8 @@ useEffect(()=>{
       onKeyDown={toggleDrawer( false)}
     >
       <Box className='flex justify-between items-center '
-      sx={{margin:'0 .5em',borderBottom:'1px solid #00000040',    justifyContent: 'flex-end'}}
-      
-      >
-        <Box>
-          <Typography sx={{fontWeight:600}}>
-            Menu
-          </Typography>
-        </Box>
+      sx={{margin:'0 .5em',borderBottom:'1px solid #00000040',    justifyContent: 'flex-end'}}>
+    
 
               <IconButton 
         
@@ -76,238 +69,127 @@ useEffect(()=>{
 
                                 </Box>
       <List>
+
       <ListItem
           sx={{fontWeight:400}}
 
-          onClick={()=>{router.push(`/about`); toggleDrawer(false)}}
+          onClick={()=>{ setOpen(false);router.push(`/`);}}
            disablePadding>
             <ListItemButton>
             
-                  <Typography component='h1' sx={{fontWeight:600}}>
-              Learn More
+                  <Typography className='' component='h1' sx={{fontWeight:300}}>
+            Home
             </Typography>
             </ListItemButton>
   
 
           </ListItem>
 
-          <Accordion sx={{border:'none',boxShadow:'none',}}>
+      <ListItem
+          sx={{fontWeight:400}}
+
+          onClick={()=>{setOpen(false);router.push(`/about`);}}
+           disablePadding>
+            <ListItemButton>
             
-            <AccordionSummary
-    expandIcon={<AiOutlineArrowUp />}
-    aria-controls="panel1a-content"
-    id="panel1a-header"
-  >
- <Typography component='h1' sx={{fontWeight:600}}>
- 5D Diy Kits
-      </Typography>
-  </AccordionSummary>
-  <AccordionDetails>
-  <List
-
-
+                  <Typography   className=''  component='h1' sx={{fontWeight:300}}>
+              About Us
+            </Typography>
+            </ListItemButton>
   
-     disablePadding>
-<ListItem sx={{padding:0,width:'100%'}}
 
-onClick={()=>
-{setOpen(false);
-router.push(`/5D DIY KITS/products`)}}
-
->
-
-
-<ListItemButton >
-      <Typography sx={{fontWeight:300}}>
-  View All
-</Typography>
-</ListItemButton>
-</ListItem>
-
-{[
-  "LANDSCAPES",
- 'PORTRAIT',
-
-  "NATURE",
-  "RELIGIOUS",
-  "KIDS & CARTOONS",
-  "TISSUE BOX",
-  "CUP COASTER",
-  "KEY CHAINS",
-  "DOUBLE MIRROR",
-  "PENCIL CASE"
-].map(i=>{   return  <ListItem sx={{padding:0,width:'100%'}}
-
-onClick={()=>
-{setOpen(false);
-router.push(`/5D DIY KITS/products?type=${encodeURIComponent(i).toLocaleLowerCase()}`)}}
-
-key={i}>
-
-
-<ListItemButton >
-            <Typography sx={{fontWeight:300}}>
-        {i}
-      </Typography>
-      </ListItemButton>
-</ListItem>
-      
-      })}
-    </List>
-
-
-  </AccordionDetails>
-</Accordion>
-
-<Accordion sx={{border:'none',boxShadow:'none',}}>
-            
-            <AccordionSummary
-    expandIcon={<AiOutlineArrowUp />}
-    aria-controls="panel1a-content"
-    id="panel1a-header"
-  >
- <Typography component='h1' sx={{
-  textTransform:'capitalize',
-  fontWeight:600}}>
- Materials
-      </Typography>
-  </AccordionSummary>
-  <AccordionDetails>
-  <List
-
-
-  
-     disablePadding>
-<ListItem sx={{padding:0,width:'100%'}}
-
-onClick={()=>
-{setOpen(false);
-router.push(`/Materials/products`)}}
-
->
-
-
-<ListItemButton >
-      <Typography sx={{fontWeight:300}}>
-  View All
-</Typography>
-</ListItemButton>
-</ListItem>
-
-{[  "SEALER BRIHTNER",
-  "OTHERS",
-  "BOXES & STORAGES",
-  "LED LIGHT PAD",
-  "CORRECTION & FENEL",
-  "CLIPS & MON-STICK PAPPER",
-  "LABEL NUMBER STICKERS",
-  "PLATE & ROLLER",
-  "PENS"
-].map(i=>{   return  <ListItem sx={{padding:0,width:'100%'}}
-
-onClick={()=>
-{setOpen(false);
-router.push(`/Materials/products?type=${encodeURIComponent(i).toLocaleLowerCase()}`)}}
-
-key={i}>
-
-
-<ListItemButton >
-            <Typography sx={{fontWeight:300}}>
-        {i}
-      </Typography>
-      </ListItemButton>
-</ListItem>
-      
-      })}
-    </List>
-
-
-  </AccordionDetails>
-</Accordion>
-
-{
-       [   
-        // `Craft Supplies`,
-      //  `DIY Kits`,
-      //  'MATERIELS',
-       `Customized`,
-      
-       ].map(i=>{
+          </ListItem>
+       
+    
+          {/* {
+          categories && categories?.map((cate:{categoryName:string,subcategories:any})=>{
               return    <ListItem
-              key={i}
+              key={cate?.categoryName}
               sx={{fontWeight:400}}
     
-              onClick={()=>{router.push(`/${i.toLocaleLowerCase()}/products`); toggleDrawer(false)}}
+              onClick={()=>{router.push(`/${cate?.categoryName?.toLocaleLowerCase()}/products`); toggleDrawer(false)}
+            
+            }
                disablePadding>
                 <ListItemButton>
                 
-                      <Typography component='h1' sx={{fontWeight:600}}>
-                     {i}
+                      <Typography component='h1' sx={{fontWeight:300}}>
+                     {cate?.categoryName?.toUpperCase()}
                 </Typography>
                 </ListItemButton>
       
     
               </ListItem>
              })
-          }
+          } */}
 
-      <ListItem
-          sx={{fontWeight:400}}
+{
+            categories?.map((cate:{categoryName:string,subcategories:any})=>{
 
-          onClick={()=>{router.push(`/almost-done`); toggleDrawer(false)}}
-           disablePadding>
-            <ListItemButton>
+              return <Accordion key={`${cate?.categoryName}`} sx={{border:'none',boxShadow:'none',}}>
             
-                  <Typography component='h1' sx={{fontWeight:600}}>
-              Almost Done
-            </Typography>
-            </ListItemButton>
+            <AccordionSummary
+    expandIcon={<AiOutlineArrowUp />}
+    aria-controls="panel1a-content"
+    id="panel1a-header"
+  >
+ <Typography className='' component='h1' sx={{fontWeight:300}}>
+ {cate?.categoryName?.toUpperCase()}
+
+      </Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+  <List
+
+
   
-
-          </ListItem>
-
-          <ListItem
-          sx={{fontWeight:400}}
-
-          onClick={()=>{router.push(`/collection/products`); toggleDrawer(false)}}
-           disablePadding>
-            <ListItemButton>
-            
-                  <Typography component='h1' sx={{fontWeight:600}}>
-              All products
-            </Typography>
-            </ListItemButton>
-  
-
-          </ListItem>
-
-
-          <ListItem
-          sx={{fontWeight:400}}
-
-          onClick={()=>{router.push(`/#FEEDBACK`); toggleDrawer(false)}}
-           disablePadding>
-            <ListItemButton>
-            
-                  <Typography component='h1' sx={{fontWeight:600}}>
-              Feedback
-            </Typography>
-            </ListItemButton>
-  
-
-          </ListItem>
+     disablePadding>
+<ListItem
+              key={cate?.categoryName}
+              sx={{fontWeight:400}}
     
-          
-       
-    
-       
+              onClick={()=>{setOpen(false);router.push(`/${cate?.categoryName?.toLocaleLowerCase()}/products`); toggleDrawer(false)}}
+               disablePadding>
 
 
+<ListItemButton
+  onClick={()=>{setOpen(false);
+    router.push(`/${encodeURIComponent(cate?.categoryName)?.toLocaleLowerCase()}/products`); toggleDrawer(false)}
+            
+}
+>
+
+      <Typography sx={{fontWeight:300}}>
+  View All
+</Typography>
+</ListItemButton>
+</ListItem>
+
+{cate?.subcategories?.map((a:any)=>{   return  <ListItem sx={{padding:0,width:'100%'}}
+
+onClick={()=>
+{setOpen(false);
+router.push(`/${cate?.categoryName?.toLocaleLowerCase()}/products?type=${encodeURIComponent(a?.name).toLocaleLowerCase()}`)}}
+
+key={a?.name}>
 
 
+<ListItemButton >
+            <Typography sx={{fontWeight:300}}>
+        {a?.name}
+      </Typography>
+      </ListItemButton>
+</ListItem>
+      
+      })}
+    </List>
 
 
+  </AccordionDetails>
+</Accordion>
+
+})
+}
 
 
                   {/* <Accordion sx={{border:'none',boxShadow:'none',}}>

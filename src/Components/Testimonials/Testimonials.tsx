@@ -67,7 +67,7 @@ const Testimonial = () => {
                 flex:1,
                 fontWeight: '500'
             }}>
-              {text('Our Customers speak for us', 'عملاؤنا يتحدثون عنا')}
+              {text('Our Customers speak for us')}
 
             </Typography>
             </Box>
